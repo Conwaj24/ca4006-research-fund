@@ -1,1 +1,1 @@
-echo $@ > pipe
+echo $@ > fund_pipe
