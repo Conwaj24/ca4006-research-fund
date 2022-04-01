@@ -12,6 +12,6 @@ help:
 
 test: fund_pipe data/fa_balance
 	mkdir -p data/groups
-	tail -f fund_pipe | python3 fundingAgency.py
+	tail -f fund_pipe | python fundingAgency.py
 
 .PHONY: test help run
