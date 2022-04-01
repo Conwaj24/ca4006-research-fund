@@ -1,25 +1,16 @@
-To use, open 2 terminal windows in the root of the git repository, or 1 terminal window, but run the first command in detached mode with "&"
+To interact with the funding agency, write commands to the named pipe "fund_pipe"
+	e.g. echo apply ABC 200001
 
-In the first window:
-"./start.sh"
-
-Use the second window to send commands:
-"./sendmessage <command goes here>"
-
-Use commands below to perform various functions.
+or use the send_message script
+	e.g. ./send_message withdraw 15 ABC 'John Smith'
 
 Command list:
 
-apply <research group name> <funding amount at the end, a number>
+	apply <research group name> <funding amount at the end, a number>
+	withdraw <amount> <group name> <researcher name>
+	add_researcher <group name> <researcher name>
+	add_description <group name> <description> (description can be space separated, no need for quotation marks)
+	get_description <group name>
+	add_title <group name> <title>
+	get_title <group name>
 
-withdraw <amount> <group name> <researcher name>
-
-add_researcher <group name> <researcher name>
-
-add_description <group name> <description> (description can be space separated, no need for quotation marks)
-
-get_description <group name>
-
-add_title <group name> <title>
-
-get_title <group name>
