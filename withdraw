@@ -1,0 +1,36 @@
+#!/usr/bin/env sh
+
+msg() {
+	echo "$@" 1>&2
+}
+
+die() {
+	msg "$@"
+	exit 1
+}
+
+usage() {
+	die "withdraw <AMOUNT: integer> <ACCOUNT: file>"
+}
+
+AMOUNT=$1
+ACCOUNT=$2
+
+test "$AMOUNT" -gt 0 && test -e "$ACCOUNT" || usage
+
+acquire_lock() {
+	exec 3<> $1 #create file descriptor, number doesn't matter so long as it's not 1 or 2
+	shift #pass remaining arguments to flock
+	flock --exclusive $@ 3
+}
+
+do_withdrawl() {
+	sleep $AMOUNT
+	cat $ACCOUNT
+}
+
+acquire_lock $ACCOUNT --nonblock ||
+{ msg "Account is busy, waiting..." && acquire_lock $ACCOUNT && msg "Waiting done!"; } &&
+do_withdrawl
+
+
