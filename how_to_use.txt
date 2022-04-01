@@ -1,0 +1,17 @@
+To use, open 2 terminal windows in the root of the git repository, or 1 terminal window, but run the first command in detached mode with "&"
+
+In the first window:
+"./start.sh"
+
+Use the second window to send commands:
+"./sendmessage <command goes here>"
+
+Use commands below to perform various functions.
+
+Command list:
+
+apply <research group name> <funding amount at the end, a number>
+
+withdraw <amount> <group name> <researcher name>
+
+add_researcher <group name> <researcher name>

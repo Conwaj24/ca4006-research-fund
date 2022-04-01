@@ -1,3 +1,5 @@
+run:
+	./start.sh
 fund_pipe:
 	mkfifo $@
 
