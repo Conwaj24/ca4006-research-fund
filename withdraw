@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-#fix echo not interpretting backslashes in a POSIX compliant way in some shells
+#fix echo not interpretting backslashes in a POSIX-compliant way in some shells
 echo '\n' | grep '\n' >/dev/null && alias echo='echo -e'
 
 msg() {
@@ -21,22 +21,22 @@ ACCOUNT=$2
 
 test "$AMOUNT" -gt 0 && test -e "$ACCOUNT" || usage
 
+#note that locks are opt-in, and are not enforced by the operating system
 acquire_lock() {
 	exec 3<> $1 #create file descriptor, number doesn't matter so long as it's not 1 or 2
 	shift #pass remaining arguments to flock
 	flock --exclusive $@ 3
 }
 
-do_withdrawl() {
+do_withdrawal() {
 	BALANCE="$(tail -n 1 $ACCOUNT)"
 	test $AMOUNT -le "$BALANCE" || die "Insufficient funds: Requested $AMOUNT, only $BALANCE availiable!"
 	BALANCE=$((BALANCE - AMOUNT)) || die "Error in equation: $BALANCE - $AMOUNT"
-	echo "-$AMOUNT\n$BALANCE" | >> $ACCOUNT
+	echo "-$AMOUNT\n$BALANCE" >> $ACCOUNT
 	echo $AMOUNT
 }
 
 acquire_lock $ACCOUNT --nonblock ||
 { msg "Account is busy, waiting..." && acquire_lock $ACCOUNT && msg "Waiting done!"; } &&
-do_withdrawl
-
+do_withdrawal
 
