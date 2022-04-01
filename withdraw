@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 
+#fix echo not interpretting backslashes in a POSIX compliant way in some shells
+echo '\n' | grep '\n' >/dev/null && alias echo='echo -e'
+
 msg() {
 	echo "$@" 1>&2
 }
@@ -25,8 +28,11 @@ acquire_lock() {
 }
 
 do_withdrawl() {
-	sleep $AMOUNT
-	cat $ACCOUNT
+	BALANCE="$(tail -n 1 $ACCOUNT)"
+	test $AMOUNT -le "$BALANCE" || die "Insufficient funds: Requested $AMOUNT, only $BALANCE availiable!"
+	BALANCE=$((BALANCE - AMOUNT)) || die "Error in equation: $BALANCE - $AMOUNT"
+	echo "-$AMOUNT\n$BALANCE" | >> $ACCOUNT
+	echo $AMOUNT
 }
 
 acquire_lock $ACCOUNT --nonblock ||
