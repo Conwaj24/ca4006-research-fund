@@ -2,6 +2,7 @@ import sys
 import os
 import time
 import glob
+from tokenize import group
 
 class FundingAgency():
     def __init__(self):
@@ -54,6 +55,29 @@ for line in sys.stdin:
             researchers.write(researcher_name + "\n")
         print("researcher added\n")
 
+    elif command == "add_title":
+        group_name = inp[1]
+        title = inp[2]
+        with open("data/groups/" + group_name + "_title", "w") as file:
+            file.write(title)
+            print("Title added to group: " + group_name)
+
+    elif command == "get_title":
+        group_name = inp[1]
+        with open("data/groups/" + group_name + "_title", "r") as file:
+            print(title)
+
+    elif command == "add_description":
+        group_name = inp[1]
+        description = inp[2:]
+        with open("data/groups/" + group_name + "_description", "w") as file:
+            file.write(" ".join(description))
+        print("description added to group")
+    
+    elif command == "get_description":
+        group_name = inp[1]
+        with open("data/groups/" + group_name + "_description", "r") as file:
+            print(file.read() + "\n")
     else:
         print("no such command")
 
