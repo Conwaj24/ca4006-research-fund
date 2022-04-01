@@ -4,16 +4,6 @@ import time
 import glob
 from tokenize import group
 
-class FundingAgency():
-    def __init__(self):
-        self.research_groups = glob.glob('data/groups/*_names')
-        print(self.research_groups)
-
-        with open("data/fa_balance") as file:
-            self.totalBalance = file.read()
-
-
-fa = FundingAgency()
 for line in sys.stdin:
     inp = line.split()
     command = inp[0]

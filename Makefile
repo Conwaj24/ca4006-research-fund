@@ -1,9 +1,17 @@
-run:
-	./start.sh
+run: help test
+
+data/fa_balance:
+	mkdir -p data
+	echo 1000000 > $@
+
 fund_pipe:
 	mkfifo $@
 
-test: fund_pipe
-	tail -f fund_pipe | python funding_agency.py
+help:
+	cat how_to_use.txt
 
-.PHONY: test
+test: fund_pipe data/fa_balance
+	mkdir -p data/groups
+	tail -f fund_pipe | python fundingAgency.py
+
+.PHONY: test help run
