@@ -1,17 +1,14 @@
 # CA4006 Assignment 2
 Jordan Conway-McLuaghlin and Ciprian Hutanu
-[demo video](https://student.computing.dcu.ie/~conwaj24/ca4003-2.webm)
+[demo video](./demo.webm)
 ## Instructions
 run `make`
-
-alternatively:
-run `./start.sh`
 
 ## Detailed instructions:
 To use the program, open 2 terminal windows in the root of the git repository, or 1 terminal window, but run the first command in detached mode with "&".
 
 In the first window:
-`./start.sh`
+`make`
 
 Use the second window to send commands:
 `./sendmessage <command goes here>`
@@ -33,8 +30,6 @@ Command list:
 `add_title <group name> <title>`
 
 `get_title <group name>`
-
-if you'd like to see a slightly less terrible version of the code run `git pull` first
 
 ## Design
 The program is implemented as a number of independent scripts in a Unix-style approach to concurrency. It relies on the Linux shell and functions for communication, multithreading, and security (theoretically). Each unit is written as its own program and executed as its own process. Communication between threads is done in part with Named Pipes (FIFO's), and in part through ordinary files. Where ordinary files are used, Linux's mutual exclusion features make sure there aren't race conditions.

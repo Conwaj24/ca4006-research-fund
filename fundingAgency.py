@@ -1,7 +1,5 @@
 import sys
 import os
-import time
-import glob
 from tokenize import group
 
 for line in sys.stdin:

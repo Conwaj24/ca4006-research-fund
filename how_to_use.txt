@@ -14,3 +14,5 @@ Command list:
 	add_title <group name> <title>
 	get_title <group name>
 
+Note: You'll need to run `make` in detached mode with "&" if you wish to use a single terminal window. Otherwise, open a second window and navigate to the same directory to send commands to the program.
+
